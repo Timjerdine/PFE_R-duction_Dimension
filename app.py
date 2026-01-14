@@ -20,7 +20,9 @@ def get_dataset(name):
         return data.data, data.target, "2D"
     else:
         X, color = datasets.make_swiss_roll(n_samples=1500, noise=0.05)
-        return X, color, "3D"
+        # CORRECTION : Convertir le gradient continu en 10 classes discrètes pour la LDA
+        y_discrete = np.digitize(color, np.linspace(color.min(), color.max(), 10))
+        return X, y_discrete, "3D"
 
 X, y, default_view = get_dataset(dataset_name)
 
@@ -62,5 +64,6 @@ if n_components == 2:
     fig = px.scatter(df, x="Dim 1", y="Dim 2", color="label", color_continuous_scale="Spectral")
 else:
     fig = px.scatter_3d(df, x="Dim 1", y="Dim 2", z="Dim 3", color="label", color_continuous_scale="Spectral")
+
 
 st.plotly_chart(fig, use_container_width=True)
