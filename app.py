@@ -87,7 +87,8 @@ if X_reduced is not None:
         fig = px.scatter_3d(df, x="Dim 1", y="Dim 2", z="Dim 3", color="label", 
                             color_continuous_scale="Spectral", title=f"{method} 3D")
 
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width=True)
+
 
 
 
